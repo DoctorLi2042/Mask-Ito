@@ -100,6 +100,10 @@ contract QLF_Parasset is IQLF, Ownable {
         if (!whitelist_list[account]) {
             return (false, "not whitelisted"); 
         }
+        if (isLucky(account) == false) {
+            emit Qualification(account, false, block.number, block.timestamp);
+            revert("Not lucky enough");
+        }
         emit Qualification(account, true, block.number, block.timestamp);
         return (true, "");
     } 
